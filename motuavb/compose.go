@@ -6,6 +6,7 @@ import (
 	"time"
 
 	tween "github.com/draoncc/go-tween"
+	"github.com/draoncc/go-tween/easing"
 )
 
 type Client struct {
@@ -24,7 +25,20 @@ func (c *Client) SetChannelVolume(channel int, volume float64) {
 
 func (c *Client) FadeChannelVolume(channel int, volume float64) {
 	channelString := `mix/chan/` + strconv.Itoa(channel) + `/matrix/fader`
-	fmt.Println(c.GetFloat32Value(channelString))
+	oldValue := float64(c.GetFloat32Value(channelString))
 
-	tween.NewEngine(time.Second, curves.Linear)
+	updater := NewFade(oldValue, volume)
+	fader := tween.NewEngine(time.Second, easing.QuadOut, updater)
+	fader.Start()
+
+	running := true
+	for running {
+		select {
+		case t := <-updater.Updates:
+			fmt.Println(t)
+		case <-updater.Done:
+			running = false
+		}
+	}
+
 }

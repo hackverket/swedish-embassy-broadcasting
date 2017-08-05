@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/coral/swedish-embassy-broadcasting/polly"
+	"github.com/swedish-embassy-broadcasting/polly"
 	irc "github.com/thoj/go-ircevent"
 )
 
