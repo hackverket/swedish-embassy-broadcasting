@@ -12,7 +12,7 @@ func Start() {
 	sAPI := r.Group("/api")
 	api.New(sAPI)
 
-	r.Use(static.Serve("/", static.LocalFile("server/public", true)))
+	r.Use(static.Serve("/", static.LocalFile("/home/bluecmd/go/src/github.com/hackverket/swedish-embassy-broadcasting/server/public", true)))
 
 	r.Run(":4020")
 }
