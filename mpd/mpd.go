@@ -29,6 +29,7 @@ type MpdClient struct {
 type Queue struct {
 	Image string
 	Title string
+	Duration int
 }
 
 func (c MpdClient) Init() {
@@ -67,7 +68,14 @@ func (c MpdClient) GetQueue() []Queue {
 		log.Fatalln(err)
 	}
 
-	for _, element := range attrs {
+  status, err := conn.Status()
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+  offset, _ := strconv.ParseFloat(status["elapsed"], 64)
+
+	for idx, element := range attrs {
 		f := element["file"]
 
 		i := Queue{}
@@ -82,6 +90,10 @@ func (c MpdClient) GetQueue() []Queue {
 				if err == nil {
 					i.Image = info["thumbnail"].(string)
 					i.Title = info["fulltitle"].(string)
+          if idx != 0 {
+            i.Duration = int(offset)
+            offset += float64(info["duration"].(int))
+          }
 				}
 			} else {
 				log.Println(err)
