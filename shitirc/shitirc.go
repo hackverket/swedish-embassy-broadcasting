@@ -35,6 +35,12 @@ func (c *Client) Connect() {
 
 				go command.QueueSong(r.FindAllStringSubmatch(event.Message(), -1)[0][1])
 			}
+
+			s := regexp.MustCompile(`\!s (.*)`)
+			if s.MatchString(event.Message()) {
+
+				go command.TextToSpeech(r.FindAllStringSubmatch(event.Message(), -1)[0][1])
+			}
 			//go polly.GetTTS(event.Message(), "", "message"+strconv.Itoa(k)+".mp3")
 			//event.Message() contains the message
 			//event.Nick Contains the sender

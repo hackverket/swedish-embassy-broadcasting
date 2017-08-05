@@ -3,8 +3,6 @@ package song
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/hackverket/swedish-embassy-broadcasting/command"
-	"github.com/hackverket/swedish-embassy-broadcasting/fetch"
-	"github.com/hackverket/swedish-embassy-broadcasting/mpd"
 )
 
 type songRequest struct {
@@ -22,12 +20,4 @@ func postSong(c *gin.Context) {
 		)
 
 	}
-}
-
-func processSong(url string) {
-	au, _ := fetch.DownloadAudio(url)
-	m := mpd.MpdClient{}
-	m.Host = "[::1]:6600"
-	m.Init()
-	m.Add(au.Path)
 }
