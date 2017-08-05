@@ -73,7 +73,7 @@ func (c MpdClient) GetQueue() []Queue {
 		log.Fatalln(err)
 	}
 
-  offset, _ := strconv.ParseFloat(status["elapsed"], 64)
+  offset, _ := strconv.ParseFloat(status["elapsed"], 64) * -1
 
 	for idx, element := range attrs {
 		f := element["file"]
@@ -90,10 +90,8 @@ func (c MpdClient) GetQueue() []Queue {
 				if err == nil {
 					i.Image = info["thumbnail"].(string)
 					i.Title = info["fulltitle"].(string)
-          if idx != 0 {
-            i.Duration = int(offset)
-            offset += info["duration"].(float64)
-          }
+          i.Duration = int(offset)
+          offset += info["duration"].(float64)
 				}
 			} else {
 				log.Println(err)
