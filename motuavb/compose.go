@@ -1,7 +1,6 @@
 package motuavb
 
 import (
-	"fmt"
 	"strconv"
 	"time"
 
@@ -28,14 +27,14 @@ func (c *Client) FadeChannelVolume(channel int, volume float64) {
 	oldValue := float64(c.GetFloat32Value(channelString))
 
 	updater := NewFade(oldValue, volume)
-	fader := tween.NewEngine(time.Second, easing.QuadOut, updater)
+	fader := tween.NewEngine(time.Second*2, easing.QuadOut, updater)
 	fader.Start()
 
 	running := true
 	for running {
 		select {
 		case t := <-updater.Updates:
-			fmt.Println(t)
+			c.SetChannelVolume(channel, t)
 		case <-updater.Done:
 			running = false
 		}
