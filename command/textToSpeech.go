@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"path"
 
+	"github.com/hackverket/swedish-embassy-broadcasting/motuavb"
 	"github.com/hackverket/swedish-embassy-broadcasting/polly"
 	uuid "github.com/satori/go.uuid"
 )
@@ -13,8 +14,8 @@ import (
 func TextToSpeech(text string) {
 
 	ttsFile := polly.GetTTS(text)
-	//sc := motuavb.Connect("10.44.22.107")
-	//sc.FadeChannelVolume(8, 0.0)
+	sc := motuavb.Connect("10.44.22.107")
+	sc.FadeChannelVolume(8, 0.05)
 	wavpath := path.Join(os.Getenv("DUMP_PATH"), uuid.NewV4().String()) + ".wav"
 	lol := exec.Command("ffmpeg", "-i", ttsFile, "-ar", "44100", "-ac", "2", wavpath)
 	g, berr := lol.Output()
@@ -31,5 +32,5 @@ func TextToSpeech(text string) {
 	cmd := exec.Command("paplay", paplayArgs...)
 	o, err := cmd.Output()
 	fmt.Println(o, err)
-	//sc.FadeChannelVolume(8, 0.7)
+	sc.FadeChannelVolume(8, 0.6)
 }
