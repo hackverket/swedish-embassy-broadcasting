@@ -19,7 +19,7 @@ var (
 
 func init() {
 	M.Host = "[::1]:6600"
-	//M.Init()
+	M.Init()
 }
 
 type MpdClient struct {

@@ -54,7 +54,7 @@ func (c *Client) Connect() {
 		fmt.Printf("Err %s", err)
 		return
 	}
-	//go c.printQueue(irccon)
+	go c.printQueue(irccon)
 	irccon.Loop()
 }
 

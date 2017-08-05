@@ -14,7 +14,7 @@ func main() {
 	var wg sync.WaitGroup
 	wg.Add(1)
 
-	sirc := shitirc.Dial("#sha2017", "irc.quakenet.org:6667", "HACK6JESUS")
+	sirc := shitirc.Dial("#sha2017", "irc.quakenet.org:6667", "HACK4JESUS")
 	go sirc.Connect()
 	go server.Start()
 
