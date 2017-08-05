@@ -55,6 +55,19 @@ func (c MpdClient) Add(f string) {
 	conn.Add(b)
 }
 
+func (c MpdClient) Next() {
+	conn, err := mpd.Dial("tcp", c.Host)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer conn.Close()
+
+	err = conn.Next()
+	if err != nil {
+		log.Fatalln(err)
+	}
+}
+
 func (c MpdClient) GetQueue() []Queue {
 	conn, err := mpd.Dial("tcp", c.Host)
 	if err != nil {
