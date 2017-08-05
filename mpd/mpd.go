@@ -73,9 +73,10 @@ func (c MpdClient) GetQueue() []Queue {
 		log.Fatalln(err)
 	}
 
-  offset, _ := strconv.ParseFloat(status["elapsed"], 64) * -1
+  offset, _ := strconv.ParseFloat(status["elapsed"], 64)
+  offset = offset * -1
 
-	for idx, element := range attrs {
+	for _, element := range attrs {
 		f := element["file"]
 
 		i := Queue{}
