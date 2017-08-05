@@ -16,3 +16,5 @@ scratch/*
 .glide/
 *.DS_Store
 DS_Store
+/swedish-embassy-broadcasting
+.*.swp
