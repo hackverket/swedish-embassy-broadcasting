@@ -2,6 +2,7 @@ package song
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/hackverket/swedish-embassy-broadcasting/command"
 	"github.com/hackverket/swedish-embassy-broadcasting/fetch"
 	"github.com/hackverket/swedish-embassy-broadcasting/mpd"
 )
@@ -14,7 +15,7 @@ func postSong(c *gin.Context) {
 	var json songRequest
 	if c.BindJSON(&json) == nil {
 
-		go command.queueSong(json.URL)
+		go command.QueueSong(json.URL)
 		c.JSON(
 			200,
 			gin.H{"message": "Song is requested and added to the playlist."},

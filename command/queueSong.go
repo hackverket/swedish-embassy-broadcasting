@@ -5,7 +5,7 @@ import (
 	"github.com/hackverket/swedish-embassy-broadcasting/mpd"
 )
 
-func queueSong(url string) {
+func QueueSong(url string) {
 	au, _ := fetch.DownloadAudio(url)
 
 	mpd.M.Add(au.Path)

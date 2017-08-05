@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	M mpd.MpdClient
+	M MpdClient
 )
 
 func init() {
