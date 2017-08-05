@@ -1,14 +1,14 @@
 package mpd
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"log"
 	"os"
 	"path"
 	"strconv"
-	"time"
-	"encoding/json"
 	"strings"
-	"io/ioutil"
+	"time"
 
 	"github.com/fhs/gompd/mpd"
 )
@@ -19,7 +19,7 @@ var (
 
 func init() {
 	M.Host = "[::1]:6600"
-	M.Init()
+	//M.Init()
 }
 
 type MpdClient struct {

@@ -41,7 +41,7 @@ func (c *Client) Connect() {
 			s := regexp.MustCompile(`\!s (.*)`)
 			if s.MatchString(event.Message()) {
 
-				go command.TextToSpeech(r.FindAllStringSubmatch(event.Message(), -1)[0][1])
+				go command.TextToSpeech(s.FindAllStringSubmatch(event.Message(), -1)[0][1])
 			}
 			//go polly.GetTTS(event.Message(), "", "message"+strconv.Itoa(k)+".mp3")
 			//event.Message() contains the message
@@ -54,7 +54,7 @@ func (c *Client) Connect() {
 		fmt.Printf("Err %s", err)
 		return
 	}
-	go c.printQueue(irccon)
+	//go c.printQueue(irccon)
 	irccon.Loop()
 }
 

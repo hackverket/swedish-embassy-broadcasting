@@ -9,14 +9,12 @@ import (
 
 func main() {
 
-	//sc := motuavb.Connect("10.44.22.107")
-	//sc.FadeChannelVolume(8, 0.4)
 	//shitirc.Connect("#sha2017", "irc.quakenet.org:6667", "CYKA2000")
 
 	var wg sync.WaitGroup
 	wg.Add(1)
 
-	sirc := shitirc.Dial("#sha2017", "irc.quakenet.org:6667", "HACK4JESUS")
+	sirc := shitirc.Dial("#sha2017", "irc.quakenet.org:6667", "HACK6JESUS")
 	go sirc.Connect()
 	go server.Start()
 
