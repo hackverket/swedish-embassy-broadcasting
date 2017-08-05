@@ -51,19 +51,19 @@ func (c MpdClient) playlistPurge() {
 		log.Fatalln(err)
 	}
 	for {
-		time.Sleep(2 * time.Second)
+		time.Sleep(10 * time.Second)
 		o, err := conn.CurrentSong()
 		if err != nil {
 			continue
 		}
-		id, err := strconv.Atoi(o["Id"])
+		pos, err := strconv.Atoi(o["Pos"])
 		if err != nil {
 			continue
 		}
-		if id == 1 {
+		if pos == 0 {
 			continue
 		}
-		log.Println("Purging old playlist entries")
-		conn.Delete(id, id-1)
+		log.Printf("Purging old playlist entries %v\n", pos)
+		conn.Delete(0, pos)
 	}
 }
