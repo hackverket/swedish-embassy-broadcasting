@@ -65,14 +65,14 @@ body {
 -------------------------------------------------- */
 
 /* Center align the text within the three columns below the carousel */
-.marketing .col-lg-4 {
+.songs .col-lg-4 {
   margin-bottom: 20px;
   text-align: center;
 }
-.marketing h2 {
+.songs h2 {
   font-weight: normal;
 }
-.marketing .col-lg-4 p {
+.songs .col-lg-4 p {
   margin-right: 10px;
   margin-left: 10px;
 }
