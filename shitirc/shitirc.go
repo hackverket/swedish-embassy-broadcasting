@@ -30,8 +30,9 @@ func (c *Client) Connect() {
 	irccon.AddCallback("366", func(e *irc.Event) {})
 	irccon.AddCallback("PRIVMSG", func(event *irc.Event) {
 		go func(event *irc.Event) {
-			r := regexp.MustCompile(`!r\s+(\w+)`)
+			r := regexp.MustCompile(`\!r (.*)`)
 			if r.MatchString(event.Message()) {
+
 				go command.QueueSong(r.FindAllStringSubmatch(event.Message(), -1)[0][1])
 			}
 			//go polly.GetTTS(event.Message(), "", "message"+strconv.Itoa(k)+".mp3")
