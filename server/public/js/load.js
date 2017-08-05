@@ -24,9 +24,9 @@ function getData() {
       var past = data[0].Duration * -1;
       var next = data[1].Duration;
       var progress = past / (past + next);
-      $('.circle').circleProgress('value', progress); 
+      $('#circle').circleProgress('value', progress); 
     } else {
-      $('.circle').circleProgress('value', 0); 
+      $('#circle').circleProgress('value', 0); 
     }
 
 		_.forEach(data, function (value, key) {
