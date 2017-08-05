@@ -132,3 +132,7 @@ body {
     margin-top: 120px;
   }
 }
+
+.carousel-caption {
+  background-color: rgba(0,0,0,0.7);
+}
