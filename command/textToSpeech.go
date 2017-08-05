@@ -22,7 +22,7 @@ func TextToSpeech(text string) {
 
 	paplayArgs := append([]string{
 		"-s", "127.0.0.1",
-		"--channel-map=", "'aux0,aux1'",
+		"--channel-map=aux0,aux1",
 		wavpath,
 	})
 
