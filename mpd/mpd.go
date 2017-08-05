@@ -92,7 +92,7 @@ func (c MpdClient) GetQueue() []Queue {
 					i.Title = info["fulltitle"].(string)
           if idx != 0 {
             i.Duration = int(offset)
-            offset += float64(info["duration"].(int))
+            offset += info["duration"].(float64)
           }
 				}
 			} else {
