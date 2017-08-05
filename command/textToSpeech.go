@@ -16,7 +16,9 @@ func TextToSpeech(text string) {
 	//sc := motuavb.Connect("10.44.22.107")
 	//sc.FadeChannelVolume(8, 0.0)
 	wavpath := path.Join(os.Getenv("DUMP_PATH"), uuid.NewV4().String()) + ".wav"
-	exec.Command("ffmpeg", "-i", ttsFile, wavpath)
+	lol := exec.Command("ffmpeg", "-i", ttsFile, wavpath)
+	g, berr := lol.Output()
+	fmt.Println(g, berr)
 
 	paplayArgs := append([]string{
 		"-s", "127.0.0.1",
