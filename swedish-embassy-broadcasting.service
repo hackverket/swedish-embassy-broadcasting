@@ -8,6 +8,7 @@ Environment=MPD_MUSIC_HOME=/home/mpd/music
 Environment=DUMP_PATH=/tmp
 ExecStart=/usr/local/bin/swedish-embassy-broadcasting
 User=mpd
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
