@@ -3,8 +3,10 @@ package shitirc
 import (
 	"fmt"
 	"regexp"
+  "time"
 
 	"github.com/hackverket/swedish-embassy-broadcasting/command"
+	"github.com/hackverket/swedish-embassy-broadcasting/mpd"
 	irc "github.com/thoj/go-ircevent"
 )
 
@@ -46,5 +48,19 @@ func (c *Client) Connect() {
 		fmt.Printf("Err %s", err)
 		return
 	}
+  go c.printQueue(irccon)
 	irccon.Loop()
+}
+
+func (c *Client) printQueue(irccon *irc.Connection) {
+  title := ""
+
+  for {
+    time.Sleep(1 * time.Second)
+    new_title := mpd.M.GetQueue()[0].Title
+    if title != new_title {
+      irccon.Privmsg(c.channel, "Now playing:" + new_title)
+    }
+    title = new_title
+  }
 }
