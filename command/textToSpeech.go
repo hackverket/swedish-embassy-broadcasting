@@ -32,5 +32,5 @@ func TextToSpeech(text string) {
 	cmd := exec.Command("paplay", paplayArgs...)
 	o, err := cmd.Output()
 	fmt.Println(o, err)
-	sc.FadeChannelVolume(8, 0.6)
+	sc.FadeChannelVolume(8, 0.8)
 }
