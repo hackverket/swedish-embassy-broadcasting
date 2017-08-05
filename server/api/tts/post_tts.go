@@ -5,12 +5,12 @@ import (
 	"github.com/hackverket/swedish-embassy-broadcasting/command"
 )
 
-type songRequest struct {
+type ttsRequest struct {
 	Text string `form:"text" json:"text" binding:"required"`
 }
 
-func postSong(c *gin.Context) {
-	var json songRequest
+func postTTS(c *gin.Context) {
+	var json ttsRequest
 	if c.BindJSON(&json) == nil {
 
 		go command.TextToSpeech(json.Text)
