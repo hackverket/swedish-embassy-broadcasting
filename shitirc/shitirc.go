@@ -2,9 +2,9 @@ package shitirc
 
 import (
 	"fmt"
-	"strconv"
+	"regexp"
 
-	"github.com/swedish-embassy-broadcasting/polly"
+	"github.com/hackverket/swedish-embassy-broadcasting/command"
 	irc "github.com/thoj/go-ircevent"
 )
 
@@ -23,7 +23,6 @@ func Dial(channel string, server string, nickname string) (c *Client) {
 }
 
 func (c *Client) Connect() {
-	var k int = 0
 	irccon := irc.IRC(c.nickname, "SWEDISHEMBASSY")
 	irccon.VerboseCallbackHandler = false
 	irccon.Debug = false
@@ -31,8 +30,11 @@ func (c *Client) Connect() {
 	irccon.AddCallback("366", func(e *irc.Event) {})
 	irccon.AddCallback("PRIVMSG", func(event *irc.Event) {
 		go func(event *irc.Event) {
-			k++
-			go polly.GetTTS(event.Message(), "", "message"+strconv.Itoa(k)+".mp3")
+			r := regexp.MustCompile(`!r\s+(\w+)`)
+			if r.MatchString(event.Message()) {
+				go command.QueueSong(r.FindAllStringSubmatch(event.Message(), -1)[0][1])
+			}
+			//go polly.GetTTS(event.Message(), "", "message"+strconv.Itoa(k)+".mp3")
 			//event.Message() contains the message
 			//event.Nick Contains the sender
 			//event.Arguments[0] Contains the channel

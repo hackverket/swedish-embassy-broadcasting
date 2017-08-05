@@ -1,6 +1,11 @@
 package main
 
-import "github.com/hackverket/swedish-embassy-broadcasting/server"
+import (
+	"sync"
+
+	"github.com/hackverket/swedish-embassy-broadcasting/server"
+	"github.com/hackverket/swedish-embassy-broadcasting/shitirc"
+)
 
 func main() {
 
@@ -8,5 +13,12 @@ func main() {
 	//sc.FadeChannelVolume(8, 0.4)
 	//shitirc.Connect("#sha2017", "irc.quakenet.org:6667", "CYKA2000")
 
-	server.Start()
+	var wg sync.WaitGroup
+	wg.Add(1)
+
+	sirc := shitirc.Dial("#sha2017", "irc.quakenet.org:6667", "HACK4JESUS")
+	go sirc.Connect()
+	go server.Start()
+
+	wg.Wait()
 }
