@@ -1,8 +1,6 @@
 package song
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/hackverket/swedish-embassy-broadcasting/fetch"
 )
@@ -25,6 +23,9 @@ func postSong(c *gin.Context) {
 }
 
 func processSong(url string) {
-	test, test2 := fetch.DownloadAudio(url)
-	fmt.Println(test, test2)
+	filename, _ := fetch.DownloadAudio(url)
+	m := MpdClient{}
+	m.Host = "[::1]:6600"
+	m.Init()
+	m.Add(filename)
 }
