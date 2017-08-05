@@ -14,7 +14,7 @@ func postSong(c *gin.Context) {
 	var json songRequest
 	if c.BindJSON(&json) == nil {
 
-		go processSong(json.URL)
+		go command.queueSong(json.URL)
 		c.JSON(
 			200,
 			gin.H{"message": "Song is requested and added to the playlist."},
