@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"time"
 
+  humanize "github.com/dustin/go-humanize"
 	"github.com/hackverket/swedish-embassy-broadcasting/command"
 	"github.com/hackverket/swedish-embassy-broadcasting/mpd"
 	irc "github.com/thoj/go-ircevent"
@@ -35,7 +36,7 @@ func (c *Client) Connect() {
 			r := regexp.MustCompile(`\!r (.*)`)
 			if r.MatchString(event.Message()) {
 
-				go command.QueueSong(r.FindAllStringSubmatch(event.Message(), -1)[0][1])
+				go c.ircQueueSong(r.FindAllStringSubmatch(event.Message(), -1)[0][1], irccon)
 			}
 
 			s := regexp.MustCompile(`\!s (.*)`)
@@ -69,4 +70,15 @@ func (c *Client) printQueue(irccon *irc.Connection) {
 		}
 		title = new_title
 	}
+}
+
+func (c *Client) ircQueueSong(url string, irccon *irc.Connection) {
+  command.QueueSong(url)
+
+
+  // What's a race condition? I don't know  ¯\_(ツ)_/¯
+  queue := mpd.M.GetQueue()
+  i := len(queue) - 1
+  playing := time.Now().Add(time.Duration(queue[i].Duration))
+  irccon.Privmsg(c.channel, "Queued " + queue[i].Title + " (in " + humanize.Time(playing) + ")")
 }
