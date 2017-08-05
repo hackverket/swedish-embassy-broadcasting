@@ -27,6 +27,6 @@ func DownloadAudio(id string) (AudioOutput, error) {
 	output := AudioOutput{
 		Path:      prefix + ".mp3",
 		Info:      prefix + ".info.json",
-		CmdOutput: o}
+		CmdOutput: string(o)}
 	return output, err
 }
