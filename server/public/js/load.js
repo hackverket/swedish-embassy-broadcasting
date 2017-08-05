@@ -16,7 +16,6 @@ $( document ).ready(function() {
 
 function getData() {
 	$.getJSON( "/api/queue/", function( data ) {
-		$(".entry1-img").attr("src",data[0].Image);
 		$("#entry1-text").text("NOW PLAYING: " + data[0].Title);
 		$('.korv').html('');
 
@@ -38,5 +37,6 @@ function getData() {
         		'</div>')
 			}
 		});
+		$(".entry1-img").attr("src",data[0].Image);
 	});
 }
