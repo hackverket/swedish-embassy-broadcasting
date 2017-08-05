@@ -15,7 +15,7 @@ func TextToSpeech(text string) {
 	ttsFile := polly.GetTTS(text)
 	//sc := motuavb.Connect("10.44.22.107")
 	//sc.FadeChannelVolume(8, 0.0)
-	wavpath := path.Join(os.Getenv("DUMP_PATH"), uuid.NewV4().String(), ".wav")
+	wavpath := path.Join(os.Getenv("DUMP_PATH"), uuid.NewV4().String()) + ".wav"
 	exec.Command("ffmpeg", "-i", ttsFile, wavpath)
 
 	paplayArgs := append([]string{
@@ -23,6 +23,9 @@ func TextToSpeech(text string) {
 		"--channel-map=", "'aux0,aux1'",
 		wavpath,
 	})
+
+	fmt.Println(paplayArgs)
+
 	cmd := exec.Command("paplay", paplayArgs...)
 	o, err := cmd.Output()
 	fmt.Println(o, err)
