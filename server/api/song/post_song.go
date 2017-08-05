@@ -1,6 +1,8 @@
 package song
 
 import (
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/hackverket/swedish-embassy-broadcasting/fetch"
 )
@@ -16,12 +18,13 @@ func postSong(c *gin.Context) {
 		go processSong(json.URL)
 		c.JSON(
 			200,
-			gin.H{"message": "Song is being requested"},
+			gin.H{"message": "Song is requested and added to the playlist."},
 		)
 
 	}
 }
 
 func processSong(url string) {
-	fetch.DownloadAudio(url)
+	test, test2 := fetch.DownloadAudio(url)
+	fmt.Println(test, test2)
 }
