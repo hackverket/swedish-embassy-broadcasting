@@ -1,0 +1,13 @@
+[Unit]
+Description=Swedish Embassy Broadcasting Suite Pro Enterprise (TM) (C)
+After=network.target sound.target
+
+[Service]
+Type=simple
+Environment=MPD_MUSIC_HOME=/home/mpd/music
+Environment=DUMP_PATH=/tmp
+ExecStart=/usr/local/bin/swedish-embassy-broadcasting
+User=mpd
+
+[Install]
+WantedBy=multi-user.target

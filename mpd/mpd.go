@@ -6,6 +6,9 @@ import (
 	"path"
 	"strconv"
 	"time"
+	"encoding/json"
+	"strings"
+	"io/ioutil"
 
 	"github.com/fhs/gompd/mpd"
 )
@@ -23,6 +26,11 @@ type MpdClient struct {
 	Host string
 }
 
+type Queue struct {
+	Image string
+	Title string
+}
+
 func (c MpdClient) Init() {
 	if os.Getenv("DISABLE_PURGE") == "" {
 		go c.playlistPurge()
@@ -34,6 +42,7 @@ func (c MpdClient) Add(f string) {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	defer conn.Close()
 
 	b := path.Base(f)
 	os.Symlink(f, path.Join(os.Getenv("MPD_MUSIC_HOME"), b))
@@ -45,11 +54,51 @@ func (c MpdClient) Add(f string) {
 	conn.Add(b)
 }
 
+func (c MpdClient) GetQueue() []Queue {
+	conn, err := mpd.Dial("tcp", c.Host)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer conn.Close()
+
+	var s []Queue
+	attrs, err := conn.PlaylistInfo(-1, -1)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	for _, element := range attrs {
+		f := element["file"]
+
+		i := Queue{}
+		link, err := os.Readlink(path.Join(os.Getenv("MPD_MUSIC_HOME"), f))
+		if err == nil {
+			infopath := strings.TrimSuffix(link, path.Ext(link)) + ".info.json"
+			b, err := ioutil.ReadFile(infopath)
+			if err == nil {
+				var m interface{}
+				err := json.Unmarshal(b, &m)
+				info := m.(map[string]interface{})
+				if err == nil {
+					i.Image = info["thumbnail"].(string)
+					i.Title = info["fulltitle"].(string)
+				}
+			} else {
+				log.Println(err)
+			}
+		}
+		s = append(s, i)
+	}
+	return s
+}
+
 func (c MpdClient) playlistPurge() {
 	conn, err := mpd.Dial("tcp", c.Host)
 	if err != nil {
 		log.Fatalln(err)
 	}
+	defer conn.Close()
+
 	for {
 		time.Sleep(10 * time.Second)
 		o, err := conn.CurrentSong()
