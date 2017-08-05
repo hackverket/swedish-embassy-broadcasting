@@ -79,6 +79,6 @@ func (c *Client) ircQueueSong(url string, irccon *irc.Connection) {
   // What's a race condition? I don't know  ¯\_(ツ)_/¯
   queue := mpd.M.GetQueue()
   i := len(queue) - 1
-  playing := time.Now().Add(time.Duration(queue[i].Duration))
+  playing := time.Now().Add(time.Duration(queue[i].Duration) * time.Second)
   irccon.Privmsg(c.channel, "Queued " + queue[i].Title + " (in " + humanize.Time(playing) + ")")
 }
