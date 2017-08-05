@@ -1,5 +1,7 @@
 $( document ).ready(function() {
 	getData();
+
+	setTimeout(function(){ getData(); }, 3000);
 });
 
 function getData() {
