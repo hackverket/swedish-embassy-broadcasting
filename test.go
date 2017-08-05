@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/swedish-embassy-broadcasting/motuavb"
+	"github.com/hackverket/swedish-embassy-broadcasting/motuavb"
 )
 
 func main() {
