@@ -5,7 +5,7 @@ $( document ).ready(function() {
 });
 
 function getData() {
-	$.getJSON( "http://10.44.22.141:4020/api/queue/", function( data ) {
+	$.getJSON( "/api/queue/", function( data ) {
 		$(".entry1-img").attr("src",data[0].Image);
 		$("#entry1-text").text("NOW PLAYING: " + data[0].Title);
 		$('.korv').html('');
