@@ -8,6 +8,9 @@ $( document ).ready(function() {
     }
   });
 
+    var player = videojs('audio-stream');
+    player.play();
+
 
   getData();
 

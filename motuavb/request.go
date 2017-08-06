@@ -70,9 +70,9 @@ func (c *Client) GetMeters(mixer string) []float64 {
 	err = json.Unmarshal(bytes, &m)
 	ma := m.(map[string]interface{})
 
-  var ms []float64
-  for _, e := range ma[mixer].([]interface{}) {
-    ms = append(ms, e.(float64))
-  }
-  return ms
+	var ms []float64
+	for _, e := range ma[mixer].([]interface{}) {
+		ms = append(ms, e.(float64))
+	}
+	return ms
 }
