@@ -31,11 +31,13 @@ func DownloadAudio(id string) (AudioOutput, error) {
 
 	exec.Command(
 		"ffmpeg-normalize",
+		"-f",
 		"--level",
 		"-12",
-		"-format",
+		"--format",
 		"flac",
+		"--no-prefix",
 		output.Path)
-	output.Path = "normalized-" + output.Path
+
 	return output, err
 }
