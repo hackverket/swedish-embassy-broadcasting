@@ -1,4 +1,4 @@
-package sauna
+package timer
 
 import (
 	"time"
@@ -7,7 +7,7 @@ import (
 )
 
 func Start() {
-	ticker := time.NewTicker(time.Duration(250) * time.Second)
+	ticker := time.NewTicker(time.Duration(1200) * time.Second)
 	go func() {
 		for _ = range ticker.C {
 			command.ReadSauna()
