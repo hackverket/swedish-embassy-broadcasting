@@ -59,10 +59,11 @@ function getData() {
   });
 }
 
-function jump() {
-  $.getJSON("/api/mixer/", function(d) {
-    var a = document.getElementById("jump");
-    a.style.top = "-" + d[22] * 0.3 + "px";
-  })
+
+url = 'ws://sha.vegjs.io/api/mixer/';
+c = new WebSocket(url);
+
+c.onmessage = function(msg){
+  var a = document.getElementById("jump");
+  a.style.top = "-" + parseFloat(msg.data) * 0.3 + "px";
 }
-setInterval(jump, 10)

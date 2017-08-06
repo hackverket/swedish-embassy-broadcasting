@@ -2,7 +2,7 @@ package mixer
 
 import (
   "time"
-  "strconv"
+  "fmt"
   "log"
 	"github.com/gin-gonic/gin"
   "github.com/hackverket/swedish-embassy-broadcasting/motuavb"
@@ -40,7 +40,7 @@ func getMixer(c *gin.Context) {
 
   for {
     // Channel 22 is one of the output channels
-    conn.WriteMessage(websocket.TextMessage, []byte(strconv.FormatFloat(level[22], 'g', 1, 64)))
+    conn.WriteMessage(websocket.TextMessage, []byte(fmt.Sprintf("%f", level[22])))
     time.Sleep(10 * time.Millisecond)
   }
 }
