@@ -10,6 +10,8 @@
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/lel.css" rel="stylesheet">
+    <link href="http://vjs.zencdn.net/6.2.4/video-js.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -64,6 +66,11 @@
     </div>
   </div>
 
+ <audio id=audio-stream width=500 height=300 class="video-js vjs-default-skin" controls preload="auto" poster="/img/cover.jpg">
+    <source
+    src="pl.m3u8"
+    type="application/x-mpegURL">
+  </audio>
 
 </div><!-- /.container -->
 
@@ -73,5 +80,7 @@
 <script src="js/lodash.js"></script>
 <script src="js/load.js"></script>
 <script src="js/circle-progress.min.js"></script>
+<script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+<script src="js/videojs-contrib-hls.js"></script>
 </body>
 </html>
