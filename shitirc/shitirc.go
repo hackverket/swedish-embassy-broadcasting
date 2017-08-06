@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"time"
 
-  humanize "github.com/dustin/go-humanize"
+	humanize "github.com/dustin/go-humanize"
 	"github.com/hackverket/swedish-embassy-broadcasting/command"
 	"github.com/hackverket/swedish-embassy-broadcasting/mpd"
 	irc "github.com/thoj/go-ircevent"
@@ -45,6 +45,12 @@ func (c *Client) Connect() {
 				go command.TextToSpeech(s.FindAllStringSubmatch(event.Message(), -1)[0][1])
 			}
 
+			a := regexp.MustCompile(`\!a (.*)`)
+			if a.MatchString(event.Message()) {
+
+				go command.Sfx(a.FindAllStringSubmatch(event.Message(), -1)[0][1])
+			}
+
 			n := regexp.MustCompile(`\!n`)
 			if n.MatchString(event.Message()) {
 				go command.NextSong()
@@ -79,12 +85,11 @@ func (c *Client) printQueue(irccon *irc.Connection) {
 }
 
 func (c *Client) ircQueueSong(url string, irccon *irc.Connection) {
-  command.QueueSong(url)
+	command.QueueSong(url)
 
-
-  // What's a race condition? I don't know  ¯\_(ツ)_/¯
-  queue := mpd.M.GetQueue()
-  i := len(queue) - 1
-  playing := time.Now().Add(time.Duration(queue[i].Duration) * time.Second)
-  irccon.Privmsg(c.channel, "Queued " + queue[i].Title + " (in " + humanize.Time(playing) + ")")
+	// What's a race condition? I don't know  ¯\_(ツ)_/¯
+	queue := mpd.M.GetQueue()
+	i := len(queue) - 1
+	playing := time.Now().Add(time.Duration(queue[i].Duration) * time.Second)
+	irccon.Privmsg(c.channel, "Queued "+queue[i].Title+" (in "+humanize.Time(playing)+")")
 }
