@@ -151,3 +151,16 @@ body {
 #jump {
   position: relative;
 }
+
+div#audio-stream {
+  position: absolute;
+  top: -270px;
+  left: 0;
+  width: 230px;
+}
+
+div#audio-stream:hover {
+  position: absolute;
+  top: 0px !important;
+  transition: top 1s ease;
+}
