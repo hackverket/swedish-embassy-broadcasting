@@ -57,6 +57,12 @@ func (c *Client) Connect() {
 				go command.TextToSpeech(german.FindAllStringSubmatch(event.Message(), -1)[0][1], "Hans")
 			}
 
+			japanese := regexp.MustCompile(`\!vj (.*)`)
+			if japanese.MatchString(event.Message()) {
+
+				go command.TextToSpeech(japanese.FindAllStringSubmatch(event.Message(), -1)[0][1], "Mizuki")
+			}
+
 			a := regexp.MustCompile(`\!a (.*)`)
 			if a.MatchString(event.Message()) {
 
