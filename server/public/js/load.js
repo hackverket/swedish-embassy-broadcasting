@@ -9,9 +9,24 @@ $( document ).ready(function() {
   });
 
 
-	getData();
+  getData();
 
-	setInterval(function(){ getData(); }, 3000);
+  setInterval(function(){ getData(); }, 3000);
+
+  $( "#fest" ).click(function(e) {
+    $.ajax({
+      type: "POST",
+      url: "/api/song/request",
+      data: JSON.stringify({"url": $( "#songreq" ).val()}),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function() {
+        console.log("OK");  
+        $( "#songreq" ).val("Your song has been requested!")
+      }
+    });
+    
+  });
 });
 
 function getData() {
@@ -28,15 +43,15 @@ function getData() {
       $('#circle').circleProgress('value', 0); 
     }
 
-		_.forEach(data, function (value, key) {
-			if(key > 0 && key < 4) {
-				$('.korv').append(''+
-				'<div class="col-lg-4">' +
-          		'<img class="img-circle" src="'+value.Image+'"" alt="' + value.Title+'" width="200" height="200">' +
-          		'<h2>' + value.Title+'</h2>' +
-        		'</div>')
-			}
-		});
-		$(".entry1-img").attr("src",data[0].Image);
-	});
+    _.forEach(data, function (value, key) {
+     if(key > 0 && key < 4) {
+      $('.korv').append(''+
+        '<div class="col-lg-4">' +
+        '<img class="img-circle" src="'+value.Image+'"" alt="' + value.Title+'" width="200" height="200">' +
+        '<h2>' + value.Title+'</h2>' +
+        '</div>')
+    }
+  });
+    $(".entry1-img").attr("src",data[0].Image);
+  });
 }
