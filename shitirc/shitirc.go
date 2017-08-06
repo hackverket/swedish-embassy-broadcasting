@@ -44,6 +44,12 @@ func (c *Client) Connect() {
 
 				go command.TextToSpeech(s.FindAllStringSubmatch(event.Message(), -1)[0][1])
 			}
+
+			n := regexp.MustCompile(`\!n`)
+			if n.MatchString(event.Message()) {
+				go command.NextSong()
+			}
+
 			//go polly.GetTTS(event.Message(), "", "message"+strconv.Itoa(k)+".mp3")
 			//event.Message() contains the message
 			//event.Nick Contains the sender
