@@ -29,14 +29,13 @@ func DownloadAudio(id string) (AudioOutput, error) {
 		Info:      prefix + ".info.json",
 		CmdOutput: string(o)}
 
-	normalizeCmd := exec.Command(
+	exec.Command(
 		"ffmpeg-normalize",
 		"--level",
 		"-12",
 		"-format",
 		"flac",
 		output.Path)
-	d, berr := cmd.Output()
 	output.Path = "normalized-" + output.Path
 	return output, err
 }
