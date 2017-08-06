@@ -13,7 +13,7 @@ func postTTS(c *gin.Context) {
 	var json ttsRequest
 	if c.BindJSON(&json) == nil {
 
-		go command.TextToSpeech(json.Text)
+		go command.TextToSpeech(json.Text, "Astrid")
 		c.JSON(
 			200,
 			gin.H{"message": "TTS will play."},

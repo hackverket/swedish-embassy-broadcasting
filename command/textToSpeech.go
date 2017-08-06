@@ -11,9 +11,9 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-func TextToSpeech(text string) {
+func TextToSpeech(text string, voice string) {
 
-	ttsFile := polly.GetTTS(text)
+	ttsFile := polly.GetTTS(text, voice)
 	sc := motuavb.Connect("10.44.22.107")
 	sc.FadeChannelVolume(8, 0.05)
 	wavpath := path.Join(os.Getenv("DUMP_PATH"), uuid.NewV4().String()) + ".wav"

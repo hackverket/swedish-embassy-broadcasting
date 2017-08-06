@@ -39,10 +39,22 @@ func (c *Client) Connect() {
 				go c.ircQueueSong(r.FindAllStringSubmatch(event.Message(), -1)[0][1], irccon)
 			}
 
-			s := regexp.MustCompile(`\!s (.*)`)
-			if s.MatchString(event.Message()) {
+			swedish := regexp.MustCompile(`\!s (.*)`)
+			if swedish.MatchString(event.Message()) {
 
-				go command.TextToSpeech(s.FindAllStringSubmatch(event.Message(), -1)[0][1])
+				go command.TextToSpeech(swedish.FindAllStringSubmatch(event.Message(), -1)[0][1], "Astrid")
+			}
+
+			english := regexp.MustCompile(`\!ve (.*)`)
+			if english.MatchString(event.Message()) {
+
+				go command.TextToSpeech(english.FindAllStringSubmatch(event.Message(), -1)[0][1], "Joey")
+			}
+
+			german := regexp.MustCompile(`\!vg (.*)`)
+			if german.MatchString(event.Message()) {
+
+				go command.TextToSpeech(german.FindAllStringSubmatch(event.Message(), -1)[0][1], "Hans")
 			}
 
 			a := regexp.MustCompile(`\!a (.*)`)

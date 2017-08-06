@@ -9,11 +9,11 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-func GetTTS(text string) string {
+func GetTTS(text string, voice string) string {
 
 	polly := golang_tts.New(os.Getenv("PKEY"), os.Getenv("PSECRET"))
 	polly.Format(golang_tts.MP3)
-	polly.Voice(golang_tts.Astrid)
+	polly.Voice(voice)
 
 	bytes, err := polly.Speech(text)
 	if err != nil {
