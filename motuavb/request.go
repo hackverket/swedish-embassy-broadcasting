@@ -88,5 +88,6 @@ func (c *Client) GetMeters(etag string) ([]float64, string) {
     break
   }
 
+  log.Printf("%v\n", resp.Header)
   return ms, resp.Header["ETag"][0]
 }
