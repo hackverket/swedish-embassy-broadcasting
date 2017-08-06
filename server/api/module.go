@@ -5,6 +5,7 @@ import (
 	"github.com/hackverket/swedish-embassy-broadcasting/server/api/queue"
 	"github.com/hackverket/swedish-embassy-broadcasting/server/api/song"
 	"github.com/hackverket/swedish-embassy-broadcasting/server/api/tts"
+	"github.com/hackverket/swedish-embassy-broadcasting/server/api/mixer"
 )
 
 func New(parent *gin.RouterGroup) {
@@ -14,4 +15,6 @@ func New(parent *gin.RouterGroup) {
 	queue.New(queueGroup)
 	ttsGroup := parent.Group("/tts")
 	tts.New(ttsGroup)
+	mixerGroup := parent.Group("/mixer")
+	mixer.New(mixerGroup)
 }

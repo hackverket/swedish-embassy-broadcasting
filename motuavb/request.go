@@ -53,3 +53,22 @@ func (c *Client) GetFloat32Value(request string) float32 {
 	return r.Value
 
 }
+
+func (c *Client) GetMeters(mixer string) []float64 {
+
+	//I HATE YOU ASWELL.
+
+	resp, err := http.Get("http://" + c.ip + "/meters?meters=mix/level")
+	if err != nil {
+		// handle err
+	}
+	defer resp.Body.Close()
+
+	bytes, _ := ioutil.ReadAll(resp.Body)
+
+	var m interface{}
+	err = json.Unmarshal(bytes, &m)
+	ma := m.(map[string]interface{})
+
+	return ma[mixer].([]float64)
+}
