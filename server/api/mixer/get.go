@@ -12,9 +12,10 @@ var (
 
 func init() {
   go func() {
+    etag := ""
     for {
       sc := motuavb.Connect("10.44.22.107")
-      level = sc.GetMeters("mix/level/0")
+      level, etag = sc.GetMeters(etag)
       time.Sleep(10 * time.Millisecond)
     }
   }()
