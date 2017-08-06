@@ -30,6 +30,7 @@ type Queue struct {
 	Image string
 	Title string
 	Duration int
+	Files []string
 }
 
 func (c MpdClient) Init() {
@@ -97,11 +98,15 @@ func (c MpdClient) GetQueue() []Queue {
     o, _ := strconv.ParseFloat(element["duration"], 64)
     offset += o
 
-		link, err := os.Readlink(path.Join(os.Getenv("MPD_MUSIC_HOME"), f))
+    f = path.Join(os.Getenv("MPD_MUSIC_HOME"), f)
+    i.Files = append(i.Files, f)
+		link, err := os.Readlink(f)
 		if err == nil {
+      i.Files = append(i.Files, link)
 			infopath := strings.TrimSuffix(link, path.Ext(link)) + ".info.json"
 			b, err := ioutil.ReadFile(infopath)
 			if err == nil {
+        i.Files = append(i.Files, infopath)
 				var m interface{}
 				err := json.Unmarshal(b, &m)
 				info := m.(map[string]interface{})
@@ -141,6 +146,13 @@ func (c MpdClient) playlistPurge() {
         return
       }
       log.Printf("Purging old playlist entries %v\n", pos)
+      queue := M.GetQueue()
+      for _, q := range queue[0:pos] {
+        for _, f := range q.Files {
+          log.Printf("Removing orphaned file %v\n", f)
+          os.Remove(f)
+        }
+      }
       conn.Delete(0, pos)
     }()
 	}
