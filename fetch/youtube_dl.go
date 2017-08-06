@@ -34,7 +34,7 @@ func DownloadAudio(id string) (AudioOutput, error) {
 		"ffmpeg-normalize",
 		"-f",
 		"--level",
-		"-12",
+		"-18",
 		"--format",
 		"flac",
 		"--no-prefix",
