@@ -2,7 +2,7 @@ package fetch
 
 import (
 	"encoding/hex"
-	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"path"
@@ -40,7 +40,7 @@ func DownloadAudio(id string) (AudioOutput, error) {
 		"--no-prefix",
 		output.Path)
 	l, berr := cmd2.Output()
-	fmt.Println(l)
+	log.Println(l, berr)
 
 	return output, err
 }
