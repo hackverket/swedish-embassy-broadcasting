@@ -18,15 +18,25 @@ func DownloadAudio(id string) (AudioOutput, error) {
 	cmd := exec.Command(
 		"youtube-dl",
 		"--extract-audio",
-		"--audio-format=mp3",
+		"--audio-format=flac",
 		"--write-info-json",
 		"--max-filesize=30m",
 		"--output="+prefix+".%(ext)s",
 		id)
 	o, err := cmd.Output()
 	output := AudioOutput{
-		Path:      prefix + ".mp3",
+		Path:      prefix + ".flac",
 		Info:      prefix + ".info.json",
 		CmdOutput: string(o)}
+
+	normalizeCmd := exec.Command(
+		"ffmpeg-normalize",
+		"--level",
+		"-12",
+		"-format",
+		"flac",
+		output.Path)
+	d, berr := cmd.Output()
+	output.Path = "normalized-" + output.Path
 	return output, err
 }
