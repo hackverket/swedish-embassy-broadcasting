@@ -7,8 +7,7 @@ import (
 )
 
 func Start() {
-	go command.ReadSauna()
-	ticker := time.NewTicker(time.Duration(1200) * time.Second)
+	ticker := time.NewTicker(time.Duration(3800) * time.Second)
 	go func() {
 		for _ = range ticker.C {
 			command.ReadSauna()

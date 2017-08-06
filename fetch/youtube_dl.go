@@ -2,6 +2,7 @@ package fetch
 
 import (
 	"encoding/hex"
+	"fmt"
 	"os"
 	"os/exec"
 	"path"
@@ -29,7 +30,7 @@ func DownloadAudio(id string) (AudioOutput, error) {
 		Info:      prefix + ".info.json",
 		CmdOutput: string(o)}
 
-	exec.Command(
+	cmd2 := exec.Command(
 		"ffmpeg-normalize",
 		"-f",
 		"--level",
@@ -38,6 +39,8 @@ func DownloadAudio(id string) (AudioOutput, error) {
 		"flac",
 		"--no-prefix",
 		output.Path)
+	l, berr := cmd2.Output()
+	fmt.Println(l)
 
 	return output, err
 }
