@@ -93,6 +93,10 @@ func (c MpdClient) GetQueue() []Queue {
 		f := element["file"]
 
 		i := Queue{}
+    i.Duration = int(offset)
+    o, _ := strconv.ParseFloat(element["duration"], 64)
+    offset += o
+
 		link, err := os.Readlink(path.Join(os.Getenv("MPD_MUSIC_HOME"), f))
 		if err == nil {
 			infopath := strings.TrimSuffix(link, path.Ext(link)) + ".info.json"
@@ -104,8 +108,6 @@ func (c MpdClient) GetQueue() []Queue {
 				if err == nil {
 					i.Image = info["thumbnail"].(string)
 					i.Title = info["fulltitle"].(string)
-          i.Duration = int(offset)
-          offset += info["duration"].(float64)
 				}
 			} else {
 				log.Println(err)
@@ -117,26 +119,29 @@ func (c MpdClient) GetQueue() []Queue {
 }
 
 func (c MpdClient) playlistPurge() {
-	conn, err := mpd.Dial("tcp", c.Host)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	defer conn.Close()
-
 	for {
 		time.Sleep(10 * time.Second)
-		o, err := conn.CurrentSong()
-		if err != nil {
-			continue
-		}
-		pos, err := strconv.Atoi(o["Pos"])
-		if err != nil {
-			continue
-		}
-		if pos == 0 {
-			continue
-		}
-		log.Printf("Purging old playlist entries %v\n", pos)
-		conn.Delete(0, pos)
+
+    go func() {
+      conn, err := mpd.Dial("tcp", c.Host)
+      if err != nil {
+        log.Fatalln(err)
+      }
+      defer conn.Close()
+
+      o, err := conn.CurrentSong()
+      if err != nil {
+        return
+      }
+      pos, err := strconv.Atoi(o["Pos"])
+      if err != nil {
+        return
+      }
+      if pos == 0 {
+        return
+      }
+      log.Printf("Purging old playlist entries %v\n", pos)
+      conn.Delete(0, pos)
+    }()
 	}
 }
