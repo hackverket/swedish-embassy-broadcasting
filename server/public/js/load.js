@@ -58,3 +58,11 @@ function getData() {
     $(".entry1-img").attr("src",data[0].Image);
   });
 }
+
+function jump() {
+  $.getJSON("/api/mixer/", function(d) {
+    var a = document.getElementById("jump");
+    a.style.top = "-" + d[22] * 0.3 + "px";
+  })
+}
+setInterval(jump, 10)
