@@ -150,6 +150,7 @@ body {
 
 #jump {
   position: relative;
+  transition: top 0.1s ease;
 }
 
 div#audio-stream {
