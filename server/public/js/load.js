@@ -13,9 +13,6 @@ $( document ).ready(function() {
 
 
   getData();
-  $("#songuploader").fileinput({
-    uploadUrl:"api/song/upload"
-  });
 
   setInterval(function(){ getData(); }, 3000);
 
