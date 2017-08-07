@@ -77,7 +77,7 @@ func (c *Client) Connect() {
 
 			n := regexp.MustCompile(`\!n`)
 			if n.MatchString(event.Message()) {
-				go command.NextSong()
+				//go command.NextSong()
 			}
 
 			//go polly.GetTTS(event.Message(), "", "message"+strconv.Itoa(k)+".mp3")
