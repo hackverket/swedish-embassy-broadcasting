@@ -147,3 +147,21 @@ body {
   padding-right: 30px;
   padding-top: 20px;
 }
+
+#jump {
+  position: relative;
+  transition: top 0.1s ease;
+}
+
+div#audio-stream {
+  position: absolute;
+  top: -270px;
+  left: 0;
+  width: 230px;
+}
+
+div#audio-stream:hover {
+  position: absolute;
+  top: 0px !important;
+  transition: top 1s ease;
+}

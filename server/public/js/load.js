@@ -58,3 +58,12 @@ function getData() {
     $(".entry1-img").attr("src",data[0].Image);
   });
 }
+
+
+url = 'ws://sha.vegjs.io/api/mixer/';
+c = new WebSocket(url);
+
+c.onmessage = function(msg){
+  var a = document.getElementById("jump");
+  a.style.top = "-" + parseFloat(msg.data) * 0.3 + "px";
+}
