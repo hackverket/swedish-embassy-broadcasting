@@ -5,5 +5,5 @@ import (
 )
 
 func New(parent *gin.RouterGroup) {
-	parent.POST("/play")
+	parent.POST("/play", playEffect)
 }
