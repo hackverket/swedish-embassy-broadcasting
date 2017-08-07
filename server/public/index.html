@@ -38,13 +38,22 @@
 <div class="container songs">
   <nav class="navbar navbar-default">
     <div class="input-group input-group-lg">
-      <input type="text" class="form-control" id="songreq" placeholder="ENTER YOUR SONG HERE" aria-describedby="sizing-addon1">
+      <input type="text" class="form-control" id="songreq" placeholder="ENTER YOUR SONG URL HERE" aria-describedby="sizing-addon1">
       <span class="input-group-btn">
-        <button type="button" class="btn btn-primary" id="fest">REQUEST SONG</button>
+        <button type="button" class="btn btn-primary" id="fest">REQUEST YOUTUBE SONG</button>
       </span>
     </div>
 
   </nav>
+
+  <nav class="navbar navbar-default">
+    <label class="control-label">Upload song below</label>
+    <form action="api/song/upload" method="post" enctype="multipart/form-data">
+      <input type="file" name="upload" id="fileToUpload">
+      <input type="submit" class="btn btn-info" value="Upload Song" name="submit">
+    </form>
+  </nav>
+
 
   <!-- Three columns of text below the carousel -->
   <div class="row korv">
@@ -66,7 +75,7 @@
     </div>
   </div>
 
- <audio id=audio-stream width=500 height=300 class="video-js vjs-default-skin" controls preload="auto" poster="blom.png">
+  <audio id=audio-stream width=500 height=300 class="video-js vjs-default-skin" controls preload="auto" poster="blom.png">
     <source
     src="hls/pl.m3u8"
     type="application/x-mpegURL">

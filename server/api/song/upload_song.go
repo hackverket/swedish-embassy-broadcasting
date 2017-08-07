@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -34,5 +35,5 @@ func uploadSong(c *gin.Context) {
 
 	go command.PrepareSong(tempFilename)
 
-	c.JSON(200, "Song Uploaded")
+	c.Redirect(http.StatusSeeOther, "/")
 }
