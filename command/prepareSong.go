@@ -11,10 +11,9 @@ import (
 )
 
 func PrepareSong(filename string) {
-	newPath := path.Join(os.Getenv("DUMP_PATH"), uuid.NewV4().String()) + ".opus"
+	newPath := path.Join(os.Getenv("DUMP_PATH"), uuid.NewV4().String()) + ".flac"
 	transcoding := exec.Command(
 		"ffmpeg",
-		"-f",
 		"-i",
 		filename,
 		"-acodec",
