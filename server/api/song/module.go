@@ -7,4 +7,5 @@ import (
 func New(parent *gin.RouterGroup) {
 	parent.GET("/", getSongs)
 	parent.POST("/request", postSong)
+	parent.POST("/upload", uploadSong)
 }
