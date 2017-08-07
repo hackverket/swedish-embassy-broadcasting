@@ -75,9 +75,9 @@ func (c *Client) Connect() {
 				go command.Sfx(a.FindAllStringSubmatch(event.Message(), -1)[0][1])
 			}
 
-			n := regexp.MustCompile(`\!n`)
+			n := regexp.MustCompile(`\!npppp`)
 			if n.MatchString(event.Message()) {
-				//go command.NextSong()
+				go command.NextSong()
 			}
 
 			//go polly.GetTTS(event.Message(), "", "message"+strconv.Itoa(k)+".mp3")
