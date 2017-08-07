@@ -1,6 +1,7 @@
 package command
 
 import (
+	"log"
 	"os"
 	"os/exec"
 	"path"
@@ -11,7 +12,7 @@ import (
 
 func PrepareSong(filename string) {
 	newPath := path.Join(os.Getenv("DUMP_PATH"), uuid.NewV4().String()) + ".opus"
-	exec.Command(
+	transcoding := exec.Command(
 		"ffmpeg",
 		"-f",
 		"-i",
@@ -23,8 +24,11 @@ func PrepareSong(filename string) {
 		"-ac",
 		"2",
 		newPath)
+	o, err := transcoding.Output()
 
-	exec.Command(
+	log.Println(o, err)
+
+	normalizing := exec.Command(
 		"ffmpeg-normalize",
 		"-f",
 		"--level",
@@ -33,6 +37,9 @@ func PrepareSong(filename string) {
 		"flac",
 		"--no-prefix",
 		newPath)
+
+	f, berr := normalizing.Output()
+	log.Println(f, berr)
 
 	mpd.M.Add(newPath)
 }

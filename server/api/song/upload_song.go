@@ -32,6 +32,7 @@ func uploadSong(c *gin.Context) {
 		return
 	}
 
-	command.PrepareSong(tempFilename)
+	go command.PrepareSong(tempFilename)
 
+	c.JSON(200, "Song Uploaded")
 }
