@@ -14,8 +14,8 @@ import (
 func TextToSpeech(text string, voice string) {
 
 	ttsFile := polly.GetTTS(text, voice)
-	sc := motuavb.Connect("10.44.22.107")
-	sc.FadeChannelVolume(8, 0.05)
+	// sc := motuavb.Connect("10.44.22.107")
+	// sc.FadeChannelVolume(8, 0.05)
 	u,_ := uuid.NewV4()
 	wavpath := path.Join(os.Getenv("DUMP_PATH"), u.String()) + ".wav"
 	lol := exec.Command("ffmpeg", "-i", ttsFile, "-ar", "44100", "-ac", "2", wavpath)
@@ -33,5 +33,5 @@ func TextToSpeech(text string, voice string) {
 	cmd := exec.Command("paplay", paplayArgs...)
 	o, err := cmd.Output()
 	fmt.Println(o, err)
-	sc.FadeChannelVolume(8, 0.8)
+	// sc.FadeChannelVolume(8, 0.8)
 }
