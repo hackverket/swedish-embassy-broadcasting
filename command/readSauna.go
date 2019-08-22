@@ -19,7 +19,8 @@ func ReadSauna() {
 	ttsFile := polly.GetTTS(saunaString, "Joey")
 	sc := motuavb.Connect("10.44.22.107")
 	sc.FadeChannelVolume(8, 0.05)
-	wavpath := path.Join(os.Getenv("DUMP_PATH"), uuid.NewV4().String()) + ".wav"
+	u,_ := uuid.NewV4()
+	wavpath := path.Join(os.Getenv("DUMP_PATH"), u.String()) + ".wav"
 	lol := exec.Command("ffmpeg", "-i", ttsFile, "-ar", "44100", "-ac", "2", wavpath)
 	g, berr := lol.Output()
 	fmt.Println(g, berr)

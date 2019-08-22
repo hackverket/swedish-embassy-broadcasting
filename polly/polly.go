@@ -20,7 +20,8 @@ func GetTTS(text string, voice string) string {
 		panic(err)
 	}
 
-	filename := path.Join(os.Getenv("DUMP_PATH"), uuid.NewV4().String()) + ".mp3"
+	u,_ := uuid.NewV4()
+	filename := path.Join(os.Getenv("DUMP_PATH"), u.String()) + ".mp3"
 	ioutil.WriteFile(filename, bytes, 0644)
 	return filename
 }
