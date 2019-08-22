@@ -1,6 +1,7 @@
 package server
 
 import (
+	"os"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/hackverket/swedish-embassy-broadcasting/server/api"
@@ -12,7 +13,8 @@ func Start() {
 	sAPI := r.Group("/api")
 	api.New(sAPI)
 
-	r.Use(static.Serve("/", static.LocalFile("/home/bluecmd/go/src/github.com/hackverket/swedish-embassy-broadcasting/server/public", true)))
+	home,_ := os.UserHomeDir()
+	r.Use(static.Serve("/", static.LocalFile(home + "/go/src/github.com/hackverket/swedish-embassy-broadcasting/server/public", true)))
 
 	r.Run(":4020")
 }

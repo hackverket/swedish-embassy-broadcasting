@@ -3,12 +3,14 @@ package command
 import (
 	"fmt"
 	"os/exec"
+	"os"
 )
 
 func Sfx(sfx string) {
 
 	fmt.Println(sfx)
-	wavpath := "/home/bluecmd/go/src/github.com/hackverket/swedish-embassy-broadcasting/sounds/" + sfx + ".wav"
+	home,_ := os.UserHomeDir()
+	wavpath := home + "/go/src/github.com/hackverket/swedish-embassy-broadcasting/sounds/" + sfx + ".wav"
 
 	paplayArgs := append([]string{
 		"-s", "127.0.0.1",

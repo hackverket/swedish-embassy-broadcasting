@@ -1,6 +1,7 @@
 package mpd
 
 import (
+  "os"
   "testing"
   "time"
 )
@@ -17,5 +18,6 @@ func TestMpdAdd(t *testing.T) {
   m := MpdClient{}
   m.Host = "[::1]:6600"
   m.Init()
-  m.Add("/home/bluecmd/testar.mp3")
+  home,_ := os.UserHomeDir()
+  m.Add(home + "/testar.mp3")
 }
